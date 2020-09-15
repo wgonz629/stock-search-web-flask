@@ -8,6 +8,9 @@ def create_app():
     except OSError:
         pass
 
+    from . import parse_data
+    app.register_blueprint(parse_data.bp)
+
     @app.route('/index.html')
     def landing_page():
         return send_from_directory('static','index.html')
