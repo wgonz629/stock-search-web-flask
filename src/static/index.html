@@ -1,11 +1,52 @@
 <html>
 
-    <head>
-        <title>TEST</title>
-    </head>
+<head>
+    <title>TEST</title>
+    <link rel="shortcut icon" href="#" />
+    <script>
+        function check(event) {
 
-    <body>
-        <h1> HELLO </h1>
-    </body>
+            const url = "http://127.0.0.1:5000/api/data?stock_symbol=" + document.getElementById('stock-ticker').value;
+            const other_params = {
+                headers: { "content-type": "application/json; charset=UTF-8" },
+                method: "GET",
+            };
+
+            fetch(url, {
+                method: 'GET', 
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            })
+            .then(response =>  response.json()
+            .then(data => (
+                {
+                    status: response.status, 
+                    body: data
+                })
+            ))
+            .then(function(obj) { 
+                let parseData = obj;
+                initialize(parseData);
+            })
+            .catch(function (error) {
+                console.error('Error:', error);
+            });
+            return false;
+        }
+        function initialize(data) {
+            console.log(data);
+        }
+    </script>
+
+</head>
+
+<body>
+    <h1> HELLO </h1>
+    <form method="POST" onsubmit="return check();">
+        <input type="text" id="stock-ticker" name="stock-ticker" placeholder="Stock Symbol" required></input>
+        <button type="submit" name="Submit"><b>Submit</b></button>
+    </form>
+</body>
 
 </html>
