@@ -41,7 +41,7 @@ def parseData():
         # break and return with status code 400
         status_code = 400
         response.update({
-            'message': 'Error: No record has been found, please enter a valid symbol'
+            'message': 'Error : No record has been found, please enter a valid symbol.'
         })
         return response, status_code
 
