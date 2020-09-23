@@ -1,52 +1,263 @@
 <html>
 
 <head>
-    <title>TEST</title>
+    <title>Stock Search</title>
     <link rel="shortcut icon" href="#" />
+    <link rel="stylesheet" type="text/css" href="/static/css/index.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
     <script>
+        function resetPage() {
+            document.getElementById("search-button").style.border = "none";
+            document.getElementById("stock-search-form").reset();
+            document.getElementById("search-tab").style.display = "none";
+            document.getElementById("error-message").innerText = "";
+        }
         function check(event) {
-
+            document.getElementById("search-button").style.border = "2px solid black";
             const url = "http://127.0.0.1:5000/api/data?stock_symbol=" + document.getElementById('stock-ticker').value;
             const other_params = {
                 headers: { "content-type": "application/json; charset=UTF-8" },
                 method: "GET",
             };
-
             fetch(url, {
-                method: 'GET', 
+                method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
                 },
             })
-            .then(response =>  response.json()
-            .then(data => (
-                {
-                    status: response.status, 
-                    body: data
+                .then(response => response.json()
+                    .then(data => (
+                        {
+                            status: response.status,
+                            body: data
+                        })
+                    ))
+                .then(function (obj) {
+                    let parseData = obj;
+                    initialize(parseData);
                 })
-            ))
-            .then(function(obj) { 
-                let parseData = obj;
-                initialize(parseData);
-            })
-            .catch(function (error) {
-                console.error('Error:', error);
-            });
+                .catch(function (error) {
+                    console.error('Error:', error);
+                });
             return false;
         }
         function initialize(data) {
-            console.log(data);
+            if (data.status === 400) {
+                console.log(data.body.message);
+                document.getElementById("search-tab").style.display = "none";
+                document.getElementById("error-message").innerText = data.body.message;
+            }
+            else {
+                document.getElementById("search-tab").style.display = "block";
+                document.getElementById("defaultOpen").click();
+                // Compay Outlook
+                console.log(data.body.stockSummary[0]);
+                document.getElementById("companyName").innerText = data.body.companyOutlook.name;
+                document.getElementById("stockTickerSymbol").innerText = data.body.companyOutlook.ticker;
+                document.getElementById("stockExchangeCode").innerText = data.body.companyOutlook.exchangeCode;
+                document.getElementById("companyStartDate").innerText = data.body.companyOutlook.startDate;
+                document.getElementById("description").innerText = data.body.companyOutlook.description;
+
+                // Stock Summary
+                document.getElementById("tickerSymbol").innerText = data.body.stockSummary[0].ticker;
+                document.getElementById("tradingDay").innerText = (data.body.stockSummary[0].timestamp).split("T")[0];
+                document.getElementById("previousClosingPrice").innerText = (data.body.stockSummary[0].prevClose).toFixed(2);
+                document.getElementById("openingPrice").innerText = (data.body.stockSummary[0].open).toFixed(2);
+                document.getElementById("highPrice").innerText = (data.body.stockSummary[0].high).toFixed(2);
+                document.getElementById("lowPrice").innerText = (data.body.stockSummary[0].low).toFixed(2);
+                var change = data.body.stockSummary[0].last - data.body.stockSummary[0].prevClose;
+                if(change>=0) {
+                    document.getElementById("change").innerHTML = change.toFixed(2) + "<img class='symbols' src='https://csci571.com/hw/hw6/images/GreenArrowUp.jpg' width='15' height='15' >";
+                    document.getElementById("changePercent").innerHTML = ((change/data.body.stockSummary[0].prevClose) * 100).toFixed(2) + "%" + "<img class='symbols' src='https://csci571.com/hw/hw6/images/GreenArrowUp.jpg' width='15' height='15' >";
+                }
+                else {
+                    document.getElementById("change").innerHTML = change.toFixed(2) + "<img class='symbols' src='https://csci571.com/hw/hw6/images/RedArrowDown.jpg' width='15' height='15'>";
+                    document.getElementById("changePercent").innerHTML = ((change/data.body.stockSummary[0].prevClose) * 100).toFixed(2) + "%" + "<img class='symbols' src='https://csci571.com/hw/hw6/images/RedArrowDown.jpg' width='15' height='15'>";
+                }
+                
+                document.getElementById("sharesTraded").innerText = data.body.stockSummary[0].volume;
+            }
+
+        }
+        function openResult(evt, tabName) {
+            var i, tabcontent, tablinks;
+            tabcontent = document.getElementsByClassName("tabcontent");
+            for (i = 0; i < tabcontent.length; i++) {
+                tabcontent[i].style.display = "none";
+            }
+            tablinks = document.getElementsByClassName("tablinks");
+            for (i = 0; i < tablinks.length; i++) {
+                tablinks[i].className = tablinks[i].className.replace(" active", "");
+            }
+            document.getElementById(tabName).style.display = "block";
+            evt.currentTarget.className += " active";
         }
     </script>
 
 </head>
 
 <body>
-    <h1> HELLO </h1>
-    <form method="POST" onsubmit="return check();">
-        <input type="text" id="stock-ticker" name="stock-ticker" placeholder="Stock Symbol" required></input>
-        <button type="submit" name="Submit"><b>Submit</b></button>
-    </form>
+
+    <div class="all-content">
+        <div class="search-box">
+            <div class="stock-search-text"> Stock Search </div>
+
+            <form id="stock-search-form" method="POST" onsubmit="return check();">
+                <div class="stock-search-input">
+                    Enter Stock Ticker Symbol
+                </div>
+                <input type="text" class="stock-search-input-box" id="stock-ticker" name="stock-ticker"
+                    required></input>
+                <button id="search-button" class="search-button" type="submit" method="POST"
+                    name="Search">Search</button>
+            </form>
+            <button class="clear-button" type="submit" name="Clear" onclick="resetPage()">Clear</button>
+        </div>
+        <hr>
+        <div id="error-message" class="error-message"> </div>
+        <div class="search-tab" id="search-tab">
+            <div class="tab">
+                <button class="tablinks" onclick="openResult(event, 'CompanyOutlook')" id="defaultOpen">Company
+                    Outlook</button>
+                <button class="tablinks" onclick="openResult(event, 'StockSummary')">Stock Summary</button>
+                <button class="tablinks" onclick="openResult(event, 'Charts')">Charts</button>
+                <button class="tablinks" onclick="openResult(event, 'LatestNews')">Latest News</button>
+            </div>
+
+            <div id="CompanyOutlook" class="tabcontent">
+                <table class="table-company-outlook">
+                    <tr>
+                        <td>
+                            Company Name
+                        </td>
+                        <td id="companyName">
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Stock Ticker Symbol
+                        </td>
+                        <td id="stockTickerSymbol">
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Stock Exchange Code
+                        </td>
+                        <td id="stockExchangeCode">
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Company Start Date
+                        </td>
+                        <td id="companyStartDate">
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Description
+                        </td>
+                        <td class="table-company-outlook-description" id="description">
+
+                        </td>
+                    </tr>
+                </table>
+            </div>
+
+            <div id="StockSummary" class="tabcontent">
+                <table class="table-stock-summary">
+                    <tr>
+                        <td>
+                            Stock Ticker Symbol
+                        </td>
+                        <td id="tickerSymbol">
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Trading Day
+                        </td>
+                        <td id="tradingDay">
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Previous Closing Price
+                        </td>
+                        <td id="previousClosingPrice">
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Opening Price
+                        </td>
+                        <td id="openingPrice">
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            High Price 
+                        </td>
+                        <td id="highPrice">
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Low Price
+                        </td>
+                        <td id="lowPrice">
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Change
+                        </td>
+                        <td id="change">
+                            
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Change Percent
+                        </td>
+                        <td id="changePercent">
+                            
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Number of Shares Traded
+                        </td>
+                        <td id="sharesTraded">
+                            
+                        </td>
+                    </tr>
+                </table>
+            </div>
+
+            <div id="Charts" class="tabcontent">
+                <h3>Tokyo</h3>
+                <p>Tokyo is the capital of Japan.</p>
+            </div>
+
+            <div id="LatestNews" class="tabcontent">
+                <h3>News</h3>
+                <p>Tokyo is the capital of Japan.</p>
+            </div>
+        </div>
+    </div>
+
 </body>
 
 </html>
