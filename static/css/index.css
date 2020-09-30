@@ -142,6 +142,7 @@ hr {
     -webkit-box-orient: vertical;
     -webkit-line-clamp: 5;
     overflow: hidden;
+    border: none !important
 }
 .table-company-outlook tr td:first-child {
     background-color: #dddddd;
