@@ -29,8 +29,8 @@ body {
 .stock-search-input {
     position: absolute;
     margin-top: 15.3%;
-    margin-left: 32%;
-    margin-right: 30%;
+    margin-left: 33%;
+    margin-right: 28%;
     font-size: 16px;
 }
 .stock-search-input:after {
@@ -104,6 +104,7 @@ hr {
     margin-top: 2%;
     border: 1px solid #ccc;
     background-color: #f1f1f1;
+    margin-bottom: 4%;
 }
 .tab button {
     background-color: inherit;
@@ -114,6 +115,7 @@ hr {
     padding: 14px 16px;
     transition: 0.3s;
     font-size: 17px;
+    font-family: sans-serif;
 }
 .tab button:hover {
     background-color: #ddd;
@@ -123,12 +125,11 @@ hr {
 }
 .tabcontent {
     display: none;
-    margin-top: 4%;
-    background-color: #f1f1f1;
 }
 .table-company-outlook {
     width: 100%;
     border-collapse: collapse;
+    background-color: #f1f1f1;
 }
 .table-company-outlook td,th {
     border: 1px solid #DAD5D5;
@@ -151,6 +152,7 @@ hr {
 .table-stock-summary {
     width: 100%;
     border-collapse: collapse;
+    background-color: #f1f1f1;
 }
 .table-stock-summary td,th {
     border: 1px solid #DAD5D5;
@@ -167,4 +169,39 @@ hr {
 .symbols {
     margin-left: 10px;
     margin-top: 6px;
+}
+.news-card {
+    margin-bottom: 2%;
+    height: 110px;
+    width: 100%;
+    background-color:  #f1f1f1;
+    display: flex;
+    border-radius: 6px;
+}
+.news-card > div {
+    margin-top: 12px;
+    margin-bottom: 12px;
+    margin-left: 18px;
+  }
+.news-image {
+    width: 88px;
+    height: 86px;
+    background-size: cover ;
+}
+.news-content {
+    display: flex;
+    flex-direction: column;
+}
+.news-content > div {
+    width: 100%;
+    font-size: 16.5px;
+    font-family: sans-serif;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 1;
+    overflow: hidden;
+}
+.high-chart {
+    width: 100%;
+    height: 100%
 }

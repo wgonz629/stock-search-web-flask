@@ -1,6 +1,7 @@
 import functools
 import requests
 import json 
+import datetime
 from datetime import date
 from dateutil.relativedelta import relativedelta
 from flask import (
@@ -58,15 +59,25 @@ def parseData():
     # startDate shoud be current date - six months
     six_months = date.today() + relativedelta(months=-6)
     startDate = six_months.strftime("%Y-%m-%d")
-
+    
     route = f'{tiingo_api_url}/iex/{stock_symbol}/prices?startDate={startDate}&resampleFreq=12hour&columns=open,high,low,close,volume&token={tiingo_api_token}'
     requestRespone = requests.get(route, headers = headers)
     stockPrice = json.loads(requestRespone.text)
+    date_closing = []
+    date_volume = []
+    for entry in stockPrice:
+        _date = entry['date']
+        _date = datetime.datetime.strptime(_date,"%Y-%m-%dT%H:%M:%S.%fZ")
+        _date = _date.strftime("%s") 
+        closingPrice = entry['close']
+        volume = entry['volume']
+        date_closing.append([int(_date)*1000, closingPrice])
+        date_volume.append([int(_date)*1000, int(volume)])
 
-    response.update({'stockPrice': stockPrice})
+    response.update({'stockPrice': {'date_closing': date_closing, 'date_volume': date_volume}})
 
     # Get stock news data 
-    route = f'{news_api_url}/everything?apiKey={news_api_token}&q={stock_symbol}'
+    route = f'{news_api_url}/everything?apiKey={news_api_token}&q={stock_symbol}&pageSize=100'
     requestRespone = requests.get(route, headers = headers)
     newsDump = json.loads(requestRespone.text)['articles']
 
