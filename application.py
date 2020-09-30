@@ -1,14 +1,9 @@
 import os
 from flask import Flask, send_from_directory
-
-
-application = Flask(__name__, instance_relative_config=True)
-try:
-    os.makedirs(application.instance_path)
-except OSError:
-    pass
-
 import parse_data
+
+application = Flask(__name__)
+
 application.register_blueprint(parse_data.bp)
 
 @application.route('/')
