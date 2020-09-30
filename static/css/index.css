@@ -1,0 +1,207 @@
+h1 {
+    color: black;
+}
+body {
+    background-color: #5F5EAB;
+}
+.all-content {
+    margin-left: 10.9%;
+    margin-right: 11%;
+    margin-top: 6%;
+    margin-bottom: 6%;
+}
+.search-box {
+    height: 43%;
+    width: 100%;
+    background-color: #E8E8E8;
+    border-radius: 6px;
+    margin-bottom: 2%;
+    position: relative;
+}
+.stock-search-text {
+    position: absolute;
+    margin-top: 8%;
+    margin-left: 38%;
+    margin-right: 20%;
+    font-size: 38px;
+    font-weight: bolder;
+}
+.stock-search-input {
+    position: absolute;
+    margin-top: 15.3%;
+    margin-left: 33%;
+    margin-right: 28%;
+    font-size: 16px;
+}
+.stock-search-input:after {
+    content:" *";
+    color: red;
+}
+.stock-search-input-box {
+    position: absolute;
+    margin-top: 15.3%;
+    border-radius: 5px;
+    margin-left: 54%;
+    margin-right: 30%;
+    height: 22px;
+    border: 0px ;
+}
+.search-button {
+    position: absolute;
+    margin-top: 21%;
+    border-radius: 5px;
+    margin-left: 37%;
+    padding-left: 4%;
+    padding-right: 4%;
+    padding-top: 1%;
+    padding-bottom: 1%;
+    background-color: white;
+    border: 0px ;
+}
+.search-button:hover {
+    background-color: #ddd;
+}
+.search-button:active, 
+.search-button:focus {
+    border: 2px solid black;
+}
+.clear-button {
+    position: absolute;
+    margin-top: 21%;
+    border-radius: 5px;
+    margin-left: 53%;
+    padding-left: 4%;
+    padding-right: 4%;
+    padding-top: 1%;
+    padding-bottom: 1%;
+    background-color: white;
+    border: 0px ;
+}
+.clear-button:hover {
+    background-color: #ddd;
+}
+.clear-button:active, 
+.clear-button:focus {
+    border: 2px solid black;
+}
+
+hr {
+    border-width: 1px;
+    color: white;
+}
+
+.search-tab {
+    display: none;
+}
+.error-message {
+    margin-top: 2.5%;
+    font-size: 18px;
+    font-weight: bolder;
+    text-align: center;
+}
+.tab {
+    overflow: hidden;
+    margin-top: 2%;
+    border: 1px solid #ccc;
+    background-color: #f1f1f1;
+    margin-bottom: 4%;
+}
+.tab button {
+    background-color: inherit;
+    float: left;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    padding: 14px 16px;
+    transition: 0.3s;
+    font-size: 17px;
+    font-family: sans-serif;
+}
+.tab button:hover {
+    background-color: #ddd;
+}
+.tab button.active {
+    background-color: #ccc;
+}
+.tabcontent {
+    display: none;
+}
+.table-company-outlook {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: #f1f1f1;
+}
+.table-company-outlook td,th {
+    border: 1px solid #DAD5D5;
+    border-collapse: collapse;
+    font-family: 'Roboto', sans-serif;
+    text-align: center;
+}
+.table-company-outlook-description {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 5;
+    overflow: hidden;
+}
+.table-company-outlook tr td:first-child {
+    background-color: #dddddd;
+    width: 31%;
+    font-weight: bolder;
+    text-align: left;
+}
+.table-stock-summary {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: #f1f1f1;
+}
+.table-stock-summary td,th {
+    border: 1px solid #DAD5D5;
+    border-collapse: collapse;
+    font-family: 'Roboto', sans-serif;
+    text-align: center;
+}
+.table-stock-summary tr td:first-child {
+    background-color: #dddddd;
+    width: 32%;
+    font-weight: bolder;
+    text-align: left;
+}
+.symbols {
+    margin-left: 10px;
+    margin-top: 6px;
+}
+.news-card {
+    margin-bottom: 2%;
+    height: 110px;
+    width: 100%;
+    background-color:  #f1f1f1;
+    display: flex;
+    border-radius: 6px;
+}
+.news-card > div {
+    margin-top: 12px;
+    margin-bottom: 12px;
+    margin-left: 18px;
+  }
+.news-image {
+    width: 88px;
+    height: 86px;
+    background-size: cover ;
+}
+.news-content {
+    display: flex;
+    flex-direction: column;
+}
+.news-content > div {
+    width: 100%;
+    font-size: 16.5px;
+    font-family: sans-serif;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 1;
+    overflow: hidden;
+}
+.high-chart {
+    width: 100%;
+    height: 100%
+}
