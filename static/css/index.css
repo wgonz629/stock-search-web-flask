@@ -1,3 +1,6 @@
+html {
+    width: 1230px;
+}
 h1 {
     color: black;
 }
@@ -5,32 +8,32 @@ body {
     background-color: #5F5EAB;
 }
 .all-content {
-    margin-left: 10.9%;
-    margin-right: 11%;
-    margin-top: 6%;
-    margin-bottom: 6%;
+    margin-left: 120px;
+    margin-right: 100px;
+    margin-top: 50px;
+    margin-bottom: 10px;
 }
 .search-box {
-    height: 43%;
-    width: 100%;
+    height: 290px;
+    width: 990px;
     background-color: #E8E8E8;
     border-radius: 6px;
-    margin-bottom: 2%;
+    margin-bottom: 20px;
     position: relative;
 }
 .stock-search-text {
     position: absolute;
-    margin-top: 8%;
-    margin-left: 38%;
-    margin-right: 20%;
+    margin-top: 82px;
+    margin-left: 385px;
+    margin-right: 385px;
     font-size: 38px;
     font-weight: bolder;
 }
 .stock-search-input {
     position: absolute;
-    margin-top: 15.3%;
-    margin-left: 33%;
-    margin-right: 28%;
+    margin-top: 155px;
+    margin-left: 326px;
+    margin-right: 315px;
     font-size: 16px;
 }
 .stock-search-input:after {
@@ -39,18 +42,18 @@ body {
 }
 .stock-search-input-box {
     position: absolute;
-    margin-top: 15.3%;
+    margin-top: 153px;
     border-radius: 5px;
-    margin-left: 54%;
-    margin-right: 30%;
+    margin-left: 535px;
+    margin-right: 315px;
     height: 22px;
     border: 0px ;
 }
 .search-button {
     position: absolute;
-    margin-top: 21%;
+    margin-top: 208px;
     border-radius: 5px;
-    margin-left: 37%;
+    margin-left: 366px;
     padding-left: 4%;
     padding-right: 4%;
     padding-top: 1%;
@@ -67,9 +70,9 @@ body {
 }
 .clear-button {
     position: absolute;
-    margin-top: 21%;
+    margin-top: 208px;
     border-radius: 5px;
-    margin-left: 53%;
+    margin-left: 525px;
     padding-left: 4%;
     padding-right: 4%;
     padding-top: 1%;
@@ -94,17 +97,17 @@ hr {
     display: none;
 }
 .error-message {
-    margin-top: 2.5%;
+    margin-top: 20px;
     font-size: 18px;
     font-weight: bolder;
     text-align: center;
 }
 .tab {
     overflow: hidden;
-    margin-top: 2%;
+    margin-top: 34px;
     border: 1px solid #ccc;
     background-color: #f1f1f1;
-    margin-bottom: 4%;
+    margin-bottom: 40px;
 }
 .tab button {
     background-color: inherit;

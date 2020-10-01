@@ -74,13 +74,17 @@
                 document.getElementById("highPrice").innerText = (data.body.stockSummary[0].high).toFixed(2);
                 document.getElementById("lowPrice").innerText = (data.body.stockSummary[0].low).toFixed(2);
                 var change = data.body.stockSummary[0].last - data.body.stockSummary[0].prevClose;
-                if (change >= 0) {
+                if (change > 0) {
                     document.getElementById("change").innerHTML = change.toFixed(2) + "<img class='symbols' src='https://csci571.com/hw/hw6/images/GreenArrowUp.jpg' width='15' height='15' >";
                     document.getElementById("changePercent").innerHTML = ((change / data.body.stockSummary[0].prevClose) * 100).toFixed(2) + "%" + "<img class='symbols' src='https://csci571.com/hw/hw6/images/GreenArrowUp.jpg' width='15' height='15' >";
                 }
-                else {
+                else if(change < 0) {
                     document.getElementById("change").innerHTML = change.toFixed(2) + "<img class='symbols' src='https://csci571.com/hw/hw6/images/RedArrowDown.jpg' width='15' height='15'>";
                     document.getElementById("changePercent").innerHTML = ((change / data.body.stockSummary[0].prevClose) * 100).toFixed(2) + "%" + "<img class='symbols' src='https://csci571.com/hw/hw6/images/RedArrowDown.jpg' width='15' height='15'>";
+                }
+                else {
+                    document.getElementById("change").innerHTML = change.toFixed(2);
+                    document.getElementById("changePercent").innerHTML = ((change / data.body.stockSummary[0].prevClose) * 100).toFixed(2) + "%" ;
                 }
                 document.getElementById("sharesTraded").innerText = data.body.stockSummary[0].volume;
                 // news-display
