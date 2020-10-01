@@ -126,6 +126,17 @@
                     dateObjectMonth = "0" + dateObjectMonth;
                 var date = dateObject.getFullYear() + "-" + dateObjectMonth + "-" + dateObject.getDate();
                 var titleText = "Stock Price " + data.body.companyOutlook.ticker + " " + date;
+                var stockPrice = data.body.stockPrice; 
+                var date_closing = []
+                var date_volume = []
+                for (var i=0; i<stockPrice.length; i++) {
+                    var year = parseInt(stockPrice[i].date.slice(0,4))
+                    var month = parseInt(stockPrice[i].date.slice(5,7))
+                    var day = parseInt(stockPrice[i].date.slice(8,10))
+                    var utcDate = Date.UTC(year, month-1, day)
+                    date_closing.push([utcDate, stockPrice[i].close])
+                    date_volume.push([utcDate, stockPrice[i].volume])
+                }
                 var subtitle = "<a href='https://api.tiingo.com/' target='_blank'> Source: Tiingo</a>";
                 var options = {
                     rangeSelector: {
@@ -155,7 +166,6 @@
                         }],
                     },
                     xAxis: {
-                        type: 'datetime',
                         gapGridLineWidth: 0,
                         minRange: 3600 * 1000 * 24 * 7,
                     },
@@ -164,15 +174,19 @@
                             title: {
                                 text: 'Volume'
                             },
-                            offset: 40,
+                            offset: 20,
                             lineWidth: 0,
+                            labels: {
+                                align: 'left',
+                                x: -3
+                            }
                         },
                         {
                             title: {
                                 text: 'Stock Price'
                             },
                             opposite: false,
-                            offset: 40,
+                            offset: 20,
                             lineWidth: 0,
                             labels: {
                             align: 'right',
@@ -190,12 +204,11 @@
                     },
                     series: [{
                         type: 'area',
-                        data: data.body.stockPrice.date_closing,
+                        data: date_closing,
                         name: data.body.companyOutlook.ticker,
                         tooltip: {
                             valueDecimals: 2
                         },
-                        threshold: null,
                         yAxis: 1,
                         getExtremesFromAll: true,
                         gapSize: 5,
@@ -213,7 +226,7 @@
                         }
                     }, {
                         type: 'column',
-                        data: data.body.stockPrice.date_volume,
+                        data: date_volume,
                         name: data.body.companyOutlook.ticker + " Volume",
                         maxPointWidth: 2,
                         tooltip: {
