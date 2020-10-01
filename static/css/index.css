@@ -63,6 +63,7 @@ body {
     padding-bottom: 8px;
     background-color: white;
     border: 0px ;
+    outline: none
 }
 .search-button:hover {
     background-color: #ddd;
@@ -82,6 +83,7 @@ body {
     padding-bottom: 8px;
     background-color: white;
     border: 0px ;
+    outline: none;
 }
 .clear-button:hover {
     background-color: #ddd;
