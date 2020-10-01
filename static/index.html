@@ -16,13 +16,11 @@
 
     <script>
         function resetPage() {
-            document.getElementById("search-button").style.border = "none";
             document.getElementById("stock-search-form").reset();
             document.getElementById("search-tab").style.display = "none";
             document.getElementById("error-message").innerText = "";
         }
         function check(event) {
-            document.getElementById("search-button").style.border = "2px solid black";
             const url = "/api/data?stock_symbol=" + document.getElementById('stock-ticker').value;
             const other_params = {
                 headers: { "content-type": "application/json; charset=UTF-8" },

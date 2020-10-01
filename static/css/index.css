@@ -47,6 +47,10 @@ body {
     margin-right: 315px;
     height: 22px;
     border: 0px ;
+    outline: none
+}
+.stock-search-input-box:focus {
+    border: 2px solid black;
 }
 .search-button {
     position: absolute;
